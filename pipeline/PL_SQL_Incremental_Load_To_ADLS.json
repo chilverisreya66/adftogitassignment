@@ -120,6 +120,56 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "StoredProcedureUpdateWatermark",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "CopyDataIncremental",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_update_db_watermark]",
+					"storedProcedureParameters": {
+						"schemaName": {
+							"value": {
+								"value": "@pipeline().parameters.sourceSchemaName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"tableName": {
+							"value": {
+								"value": "@pipeline().parameters.sourceTableName",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"new_watermark": {
+							"value": {
+								"value": "@activity('Lookup_New_Watermark').output.firstRow.new_watermark_value",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_AzureSQL_Retail",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
