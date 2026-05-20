@@ -1,5 +1,5 @@
 {
-	"name": "AzureSqlTableCopyData",
+	"name": "DS_AzureSQL_Parameterized",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_AzureSQL_Retail",
