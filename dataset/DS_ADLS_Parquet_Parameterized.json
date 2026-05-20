@@ -1,5 +1,5 @@
 {
-	"name": "ParquetDataLakeStorage",
+	"name": "DS_ADLS_Parquet_Parameterized",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_ADLSGen2_Retail",
